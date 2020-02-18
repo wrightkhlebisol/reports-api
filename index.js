@@ -5,10 +5,9 @@ const Reports = require("./model/reportsModel")
 const reportsRoute = require("./router/reportRouter")
 let app = express();
 
+app.use('/api', reportsRoute)
 
-app.use('api/reports', reportsRoute)
-
-// mongooseConnect.connection
-app.listen(3000, () => {
-    console.log("App listening on port 3000!");
+let port = 3000;
+app.listen(port, () => {
+    console.log(`Listening on port ${port}!`);
 });
