@@ -1,13 +1,18 @@
 const express = require("express");
-const routes = require("./router/routeTest");
-const reportsSchema = require("./model/reportsModel");
-const Reports = require("./model/reportsModel")
-const reportsRoute = require("./router/reportRouter")
+const mongoose = require("mongoose");
+const Reports = require("./model/reportsModel");
+const reportsRoute = require("./router/reportRouter");
+require('./config/db');
+require('dotenv').config();
+
+
+let mongodbconnection = mongoose.connection;
+mongodbconnection.on('error', console.error.bind(console, 'Mongodb conenction error: '));
+
 let app = express();
 
-app.use('/api', reportsRoute)
+app.use('/v1/api', reportsRoute);
 
-let port = 3000;
-app.listen(port, () => {
-    console.log(`Listening on port ${port}!`);
+app.listen(process.env.PORT, () => {
+    console.log(`Listening on port ${process.env.PORT}!`);
 });
